@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link 
+      rel="stylesheet" 
+      type="text/css"
+      href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script>
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+        src="../server.js">
+    </script>
+    <title>Page 1</title>
+  </head>
+  <body>
+    <br>
+    <nav>
+        <div class="container">
+            <h2>UA New Student Tuberculosis Screening</h2>
+        </div>
+    </nav>
+    <div class="container">
+        <hr>
+        <div style="height: 20vh;"></div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                
+                <div>Username:</div>
+                <input id="username" class="" style="width: 100%;">
+                <div>Password:</div>
+                <input type="password" id="password" name="password" style="width: 100%;">
+                <hr>
+                <a><button class="btn btn-primary" onclick="signIn()" style="width: 100%;">Sign In</button></a>
+                <div id="badLogin" style="text-align: center; color: brown; display:none;"><b>Incorrect Username or Password</b></div>
+                <div class="loader" id="loader"></div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div style="height: 20vh;"></div>
+        <div class="row">
+            <div class="col-7 col-lg-9"></div>
+            <div class="col-5 col-lg-3" style="text-align: end;"> <img class="img-fluid" src=".\Media\PLP Logo.png">
+            </div>
+        </div>
+    </div>
+
+<script >
+  signIn = async() => {
+    const user = document.getElementById("username").value
+    const pass = document.getElementById("password").value
+    const url = `/getCredentials?user=${encodeURIComponent(user)}&pass=${encodeURIComponent(pass)}`
+    loader.style.display = 'block';
+    const sign = await fetch(url)
+    const data = await sign.json();
+    try{
+    if(data.email != undefined)    {
+      sessionStorage.setItem("studentName",JSON.stringify(data.name))
+      sessionStorage.setItem("email",JSON.stringify(data.email))
+      sessionStorage.setItem("sid",JSON.stringify(data.id))
+      sessionStorage.setItem("resp",JSON.stringify(data.resp))
+      if(data.resp > 0){
+        location.href = "AlreadySubmitted.html"
+      } else{location.href = "pg2.html"}
+      
+      loader.style.display = "none";
+      badLoginText.style.display = "none"
+    } 
+    else
+    {
+      const badLoginText = document.getElementById("badLogin")
+      badLoginText.style.display = "block";
+      loader.style.display = "none";
+    }
+    await connection.close();
+  }
+   catch (err) 
+  {
+    console.error(err);
+    res.status(500).send('Connection Error');
+  }
+
+};
+  
+  populateStatic = async() =>{
+    try {
+        const response = await fetch('/getStaticValues');
+        const data = await response.json();
+        sessionStorage.setItem('Countries',JSON.stringify(data.countries));
+    }
+    catch (error) {
+        console.error(error);
+    }
+  }
+  window.onload = populateStatic();
+</script>
+
+</body>
+</html>

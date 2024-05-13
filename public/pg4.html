@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <style>table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tbody {
+        display: block;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }</style>
+    <link 
+      rel="stylesheet" 
+      type="text/css"
+      href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script>
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+        src="../server.js">
+    </script>
+
+
+    <title>Page 4</title>    
+  </head>
+  <body>
+    <br>
+    <nav>
+        <div class="container">
+            <h2>UA New Student Tuberculosis Screening</h2>
+        </div>
+    </nav>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div>
+                    <p>5: Have you had frequent or prolonged visits (such as vacation, study or work) to one or more of the countries listed below?</p>
+                    <p>Frequent visits mean that you have traveled to the country or territory listed below greater than two times in the last year. A prolonged visit is any visit lasting 1 month or longer.</p>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="3">Countries</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- First Column -->
+                        <tr>
+                            <td>Afghanistan</td>
+                            <td>Angola</td>
+                            <td>Armenia</td>
+                        </tr>
+                        <tr>
+                            <td>Algeria</td>
+                            <td>Anguilla</td>
+                            <td>Azerbaijan</td>
+                        </tr>
+                        <tr>
+                            <td>Argentina</td>
+                            <td>Argentina</td>
+                            <td>Bangladesh</td>
+                        </tr>
+                        <tr>
+                            <td>Benin</td>
+                            <td>Bhutan</td>
+                            <td>Belize</td>
+                        </tr>
+                        <!-- Second Column -->
+                        <tr>
+                            <td>Bolivia</td>
+                            <td>Bosnia and Herzegovina</td>
+                            <td>Botswana</td>
+                        </tr>
+                        <tr>
+                            <td>Burkina Faso</td>
+                            <td>Burundi</td>
+                            <td>Cabo Verde</td>
+                        </tr>
+                        <tr>
+                            <td>Cambodia</td>
+                            <td>Cameroon</td>
+                            <td>Central African Republic</td>
+                        </tr>
+                        <tr>
+                            <td>Chad</td>
+                            <td>China</td>
+                            <td>China, Hong Kong SAR</td>
+                        </tr>
+                        <!-- Third Column -->
+                        <tr>
+                            <td>China, Macao SAR</td>
+                            <td>Colombia</td>
+                            <td>Comoros</td>
+                        </tr>
+                        <tr>
+                            <td>Congo</td>
+                            <td>Côte d'Ivoire</td>
+                            <td>Democratic People's Republic of Korea</td>
+                        </tr>
+                        <tr>
+                            <td>Democratic Republic of the Congo</td>
+                            <td>Djibouti</td>
+                            <td>Dominican Republic</td>
+                        </tr>
+                        <tr>
+                            <td>Ecuador</td>
+                            <td>El Salvador</td>
+                            <td>Equatorial Guinea</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <br>
+
+                  <label>
+                    <input type="radio" name="q5" value="yes"> Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="q5" value="no"> No
+                  </label>
+ 
+                <hr>
+                <button class="btn btn-primary" style="width: 100%;" onclick="navigate()">Submit Form</button>
+                <div class="loader" id="loader"></div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div style="height: 20vh;"></div>
+        <div class="row">
+            <div class="col-7 col-lg-9"></div>
+            <div class="col-5 col-lg-3" style="text-align: end;"> <img class="img-fluid" src=".\Media\PLP Logo.png">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        sendEmail = async(emailID) => {
+            try{
+            const SID = sessionStorage.getItem("sid")
+            const sEmail = sessionStorage.getItem("email")
+            const named = sessionStorage.getItem("studentName")
+            const name = named.replace(/^"|"$/g, '')
+            let url = `/sendEmail?SID=${encodeURIComponent(SID)}&SE=${encodeURIComponent(sEmail)}&SN=${encodeURIComponent(name)}&SEID=${encodeURIComponent(emailID)}`
+            let url2 = `/notifyHealthcare?SID=${encodeURIComponent(SID)}`
+            let succc = await fetch(url)
+            let succ = await fetch(url2)
+            } catch (error){
+                console.error('could not send email values - SID: '+ SID + ' sEmail: ' + sEmail + ' sName: ' + studentName)
+            }
+        }
+
+        submit = async() =>{
+            for(let i = 1; i <= 5; i++){
+                console.log("hmm")
+                console.log(i)
+                let SQID = 'QST0' + `${i}`
+                let qA = sessionStorage.getItem("q" + `${i}`)
+                const SID = sessionStorage.getItem("sid")
+                let url = `/submitSurvey?SID=${encodeURIComponent(SID)}&SQID=${encodeURIComponent(SQID)}&Q=${qA}`
+                try{
+                let succ = await fetch(url)
+                console.log(succ.success)
+                } catch (error) {
+                console.error('Failed to submit survey response for question ' + i, error);
+                // Optionally break the loop if you don't want to continue after a failure
+                break;
+            }
+            }
+        }
+        navigate = async() => {
+            loader.style.display = 'block';
+            // Get the selected value of the radio buttons
+            var choice = document.querySelector('input[name="q5"]:checked');
+            // Determine which page to navigate based on the selected value
+        if (choice) {
+            choice = choice.value;
+            sessionStorage.setItem("q5", choice)
+            const q1 = sessionStorage.getItem("q1")
+            const q2 = sessionStorage.getItem("q2")
+            const q3 = sessionStorage.getItem("q3")
+            const q4 = sessionStorage.getItem("q4")
+            const q5 = choice
+            const SID = sessionStorage.getItem("sid")
+            const sEmail = sessionStorage.getItem("email")
+            await submit()
+            
+
+            // Redirect to the "yes" page
+            
+            
+            if (choice === 'yes' || q1 === '1' || q2 === 'yes' || q3 === 'yes' || q4 === 'yes') {
+                const studentEmailID = 'ST104' 
+                console.log("ok")
+                await sendEmail(studentEmailID )
+                window.location.href = "pg5.html";
+                // Redirect to the "no" page
+            } else if (choice === "no") {
+                console.log("okk")
+                const studentEmailID = 'ST105' 
+                await sendEmail(studentEmailID )
+                window.location.href = "pg5_alt.html";
+            }
+            // Handle case where no option is selected
+        } else {
+            alert("Please select an option.");
+        }
+    }
+    </script>
+
+</body>
+</html>

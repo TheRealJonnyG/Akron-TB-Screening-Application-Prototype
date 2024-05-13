@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link 
+      rel="stylesheet" 
+      type="text/css"
+      href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script>
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+        src="../server.js">
+    </script>
+    <title>Page 3</title>
+  </head>
+  <body>
+    <br>
+    <nav>
+        <div class="container">
+            <h2>UA New Student Tuberculosis Screening</h2>
+        </div>
+    </nav>
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-6">
+                <div>1: Choose your country of birth from the dropdown</div>
+                <select id="Countries" style="width: 100%;">
+                  <option>
+                    
+                  </option>
+                </select>
+                <br>
+                <br>
+                <div>2. Have you ever had close contact with a person/people 
+                  who have Active Tubercolis or are suspected of having 
+                  Active Tuberculosis?</div>
+                  <label>
+                    <input type="radio" name="q2" value="yes"> Yes
+                  </label>
+                  <label>
+                    <input type="radio" name="q2" value="no"> No
+                  </label>
+                  <br>
+                  <br>
+                  <div>3. Have you ever lived, volunteered, or worked in: a jail, 
+                    a long-term care facility, or a homeless shelter?</div>
+                    <label>
+                      <input type="radio" name="q3" value="yes"> Yes
+                    </label>
+                    <label>
+                      <input type="radio" name="q3" value="no"> No
+                    </label>
+                    <br>
+                    <br>
+                    <div>4. Have you ever provided care to Tuberculosis patients 
+                      as a volunteer or healthcare worker?</div>
+                      <label>
+                        <input type="radio" name="q4" value="yes"> Yes
+                      </label>
+                      <label>
+                        <input type="radio" name="q4" value="no"> No
+                      </label>
+                  
+                <hr>
+                <button class="btn btn-primary" style="width: 100%;" onclick="nextPage()">Next Page</button>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div style="height: 20vh;"></div>
+        <div class="row">
+            <div class="col-7 col-lg-9"></div>
+            <div class="col-5 col-lg-3" style="text-align: end;"> <img class="img-fluid" src=".\Media\PLP Logo.png">
+            </div>
+        </div>
+    </div>
+
+    <script>
+      populateDropDown = async() => {
+        const parentElement = document.getElementById('Countries')
+        let cNames = JSON.parse(sessionStorage.getItem('Countries'))
+        for(let i = 0; i < cNames.length; i++){
+          let option = document.createElement("option")
+          option.innerText = cNames[i].name
+          parentElement.appendChild(option)
+        }
+      }
+
+      nextPage = () => {
+        var choice = document.querySelector('#Countries')
+        let cNames = JSON.parse(sessionStorage.getItem('Countries'))
+        let choice1 = 'nothing'
+        console.log(choice.value.replace(/\s+/g, '') + " | " + cNames[0].autotest + " | " + cNames[3].name.replace(/\s+/g, ''))
+        console.log(cNames.length + " TEST")
+        for(let i = 0; i < cNames.length; i++){
+          a = choice.value.replace(/\s+/g, '')
+          let country = cNames[i].name.replace(/\s+/g, '')
+          if(country === a){
+            choice1 = cNames[i].autotest
+          }
+        }
+        console.log(choice1)
+        var choice2 = document.querySelector('input[name="q2"]:checked')
+        var choice3 = document.querySelector('input[name="q3"]:checked')
+        var choice4 = document.querySelector('input[name="q4"]:checked')
+        const testBool = null
+        if(choice1 != 'nothing' && choice2 && choice3 && choice4){
+
+          choice2 = choice2.value
+          choice3 = choice3.value
+          choice4 = choice4.value
+        
+          sessionStorage.setItem('q1',choice1)
+          sessionStorage.setItem('q2',choice2)
+          sessionStorage.setItem('q3',choice3)
+          sessionStorage.setItem('q4',choice4)
+          location.href = "pg4.html";
+       } else{
+          alert("Please fill in all options.")
+        }
+      }
+
+      window.onload = populateDropDown();
+    </script>
+
+
+</body>
+</html>

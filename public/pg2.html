@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link 
+      rel="stylesheet" 
+      type="text/css"
+      href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script>
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+    </script>
+    <script 
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+      crossorigin="anonymous">
+    </script>
+    <title>Page 2</title>
+  </head>
+  <body>
+    <br>
+    <nav>
+        <div class="container">
+            <h2>UA New Student Tuberculosis Screening</h2>
+        </div>
+    </nav>
+    <div class="container">
+        <hr>
+        <div style="height: 20vh;"></div>
+        <div style="height: 50vh;" class="row">
+            <div class="col">
+                <div style="height: 30vh;"></div>
+                <img class="img-fluid" src=".\Media\PLP Logo.png">
+            </div>
+            <div class="col" style="text-align: center;">
+                Welcome <b id="name">_</b>, to the University of Akron!
+                As a part of our endeavor to ensure 
+                a healthy and safe environment for 
+                yourself and others you are being 
+                asked to take this quick survey. 
+                <hr>
+                Please answer the following questions
+                to the best of your ability.
+                How you answer will help us decide
+                if you need to be tested for tuberculosis.
+                <div><a href="pg3.html"><button class="btn btn-primary">Begin Survey</button></div></a>
+            </div>
+            
+            <div class="col" style="text-align:center;">
+                <img class="img-fluid" style="height: 50%;" src=".\Media\QueenZippy.png">
+                <div style="text-align:center;">As a foreign student from Australia,
+                    Zippy had to take this survey as well!
+                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-5 col-lg-3" style="text-align: end;"></div>
+            <div class="col-4 col-lg-6"></div>
+            <div class="col-2 col-lg-2" style="text-align: center;">
+                <div class="col"></div>
+        </div>
+    </div>
+
+    <script>
+      showName = () => {
+      const name = sessionStorage.getItem("studentName")
+      const nameWithoutQuotes = name.replace(/^"|"$/g, '');
+      const nameElement = document.getElementById("name")
+      nameElement.innerText = nameWithoutQuotes
+      }
+      window.onload = showName()
+    </script>
+</body>
+</html>

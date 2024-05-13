@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Name by ID</title>
+</head>
+<body>
+    
+    <button id="getNameBtn" onclick="sendMail()">Get Name by ID</button>
+    <div id="result"></div>
+    
+    <script>
+        
+        document.getElementById('getNameBtn').addEventListener('click', async function() {
+    try {
+        const response = await fetch('/getStaticValues');
+        const data = await response.json();
+        sessionStorage.setItem('autoTest',JSON.stringify(data.test));
+        sessionStorage.setItem('cName',JSON.stringify(data.cName));
+        for(let i = 0; i < data.test.length; i++){
+        
+        let names = JSON.parse(sessionStorage.getItem('cName'))
+        let at = JSON.parse(sessionStorage.getItem('autoTest'))
+        document.getElementById('result').innerText += names[i] + " " + at[i] + "\n";
+
+        //document.getElementById('result').innerText += data.cName[i] + "\n";           
+        //document.getElementById('result').innerText += data.test[i] + "\n";
+        }
+        //document.getElementById('result').innerText += data.cName + "" + data.testNeeded + " " + data.test[0];
+    } catch (error) {
+        console.error(error);
+    }
+});
+      setName = async() => {
+    try {
+    const response = await fetch('/getNameById');
+    const data = await response.json();
+    document.getElementById('name').innerText = data.name;
+} catch (error) {
+    console.error(error);
+}
+}
+setName();
+    </script>
+    <script src="methods.js"></script>
+</body>
+</html>
+
+/*      setName = async() => {
+    try {
+    const response = await fetch('/getNameById');
+    const data = await response.json();
+    document.getElementById('name').innerText = data.name;
+} catch (error) {
+    console.error(error);
+}
+}
+setName();
